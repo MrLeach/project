@@ -12,10 +12,21 @@
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(16, PIN, NEO_GRB + NEO_KHZ800);
 
+// map the pixel so that the orientation of
+// the ring can be set 
 
-void Init()
+
+void InitRing()
 {
   strip.begin();
+}
+
+
+// map numbers so that numbers increase
+// clockwise and 0 is at the 6 o'clock position
+int PPos(int pixelNum)
+{
+  return (((15 - pixelNum ) + 12) % strip.numPixels());
 }
 
 void Brightness(int val)
@@ -32,7 +43,7 @@ void Show()
 
 void SetPix( uint16_t position, int r, int g, int b)
 {
-  strip.setPixelColor(position, strip.Color(r,g,b));
+  strip.setPixelColor(PPos(position), strip.Color(r,g,b));
 }
 
 void SetAllPix(int r, int g, int b)
@@ -54,14 +65,3 @@ void PixMask(char* mask)
   }
 }
 
-void SetPixMask(int setting, char* mask)
-{
-  for (int i=0; i<strlen(mask); i++)
-  {
-    if (i < setting * 2){
-        mask[i] = '1';
-    }else{
-         mask[i] = '1';
-    }
-  }
-}
