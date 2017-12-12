@@ -45,8 +45,12 @@ void SetAllPix(int r, int g, int b)
 
 void PixMask(char* mask)
 {
-  for (int i = 0; i < strlen(mask); i++){
-    if (mask[i] == '0') SetPix(i,0,0,0);
+  int maskLength = strlen(mask);
+  int pos = 0;
+  
+  for (int i = 0; i < strip.numPixels(); i++){
+    pos = i % maskLength;
+    if (mask[pos] == '0') SetPix(i,0,0,0);
   }
 }
 
