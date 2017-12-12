@@ -19,7 +19,7 @@ void setup() {
 
 void loop() {
 
-  if (PositionChanged())
+  if (PositionChanged() )
   {
     currentDialPosition = ReadDialSetting();
     Serial.print("Value changed: ");
@@ -31,6 +31,7 @@ void loop() {
       selectedDisplayFunc = displayFuncs[currentDialPosition];
       selectedDisplayFunc();
     } else {
+      
       SetAllPix(255, 255, 255);
       char mask[16];
       for (int i = 0; i < 16; i++)
@@ -46,15 +47,10 @@ void loop() {
     }
     Show();
     ButtonStatus();
-
-    // schedule a delay, then the current pattern
-
+    Delay(3000);
 
   }
-  if (RedPressed())
-  {
-    if (selectedDisplayFunc != NULL) selectedDisplayFunc();
-  }
+  if (selectedDisplayFunc != NULL) selectedDisplayFunc();
 }
 
 

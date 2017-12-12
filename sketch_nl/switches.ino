@@ -18,26 +18,24 @@ bool ButtonsChanged()
 {
   if (digitalRead(REDBUTTON) != lastRedButton)
   {
-    lastRedButton = digitalRead(REDBUTTON);
-    return false;
+    return true;
   }
   if (digitalRead(TAPBUTTON) != lastTapButton)
   {
-    lastTapButton = digitalRead(TAPBUTTON);
-    return false;
+    return true;
   }
-  return true;
+  return false;
 }
 
 
 bool RedPressed()
 {
-  return (digitalRead(REDBUTTON) == LOW);
+  return ((lastRedButton = digitalRead(REDBUTTON)) == LOW);
 }
 
 bool KnobUp()
 {
-  return (digitalRead(TAPBUTTON) == LOW);
+  return ((lastTapButton = digitalRead(TAPBUTTON)) == LOW);
 }
 
 void ButtonStatus()
