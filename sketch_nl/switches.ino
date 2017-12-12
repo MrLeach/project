@@ -4,6 +4,8 @@
 
 int redButton = HIGH;
 int tapButton = HIGH;
+int lastRedButton = HIGH;
+int lastTapButton=HIGH;
 
 void InitButtons(){
 
@@ -12,7 +14,23 @@ void InitButtons(){
 }
 
 
-void RedPressed()
+bool ButtonsChanged()
+{
+  if (digitalRead(REDBUTTON) != lastRedButton)
+  {
+    lastRedButton = digitalRead(REDBUTTON);
+    return false;
+  }
+  if (digitalRead(TAPBUTTON) != lastTapButton)
+  {
+    lastTapButton = digitalRead(TAPBUTTON);
+    return false;
+  }
+  return true;
+}
+
+
+bool RedPressed()
 {
   return (digitalRead(REDBUTTON) == LOW);
 }
